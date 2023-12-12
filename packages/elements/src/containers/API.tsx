@@ -101,6 +101,12 @@ export interface CommonAPIProps extends RoutingProps {
    * @default undefined
    */
   defaultExpandedDepth?: number;
+
+  /**
+   * The amount of levels deep should be opened by default.
+   * @default undefined
+   */
+  maxDepthOpenByDefault?: number;
 }
 
 const propsAreWithDocument = (props: APIProps): props is APIPropsWithDocument => {
@@ -120,6 +126,7 @@ export const APIImpl: React.FC<APIProps> = props => {
     tryItCorsProxy,
     maxRefDepth,
     defaultExpandedDepth,
+    maxDepthOpenByDefault,
   } = props;
   const location = useLocation();
   const apiDescriptionDocument = propsAreWithDocument(props) ? props.apiDescriptionDocument : undefined;
@@ -202,6 +209,7 @@ export const APIImpl: React.FC<APIProps> = props => {
           exportProps={exportProps}
           tryItCredentialsPolicy={tryItCredentialsPolicy}
           tryItCorsProxy={tryItCorsProxy}
+          maxDepthOpenByDefault={maxDepthOpenByDefault}
         />
       )}
     </InlineRefResolverProvider>

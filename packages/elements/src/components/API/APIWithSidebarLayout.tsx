@@ -17,6 +17,7 @@ type SidebarLayoutProps = {
   exportProps?: ExportButtonProps;
   tryItCredentialsPolicy?: 'omit' | 'include' | 'same-origin';
   tryItCorsProxy?: string;
+  maxDepthOpenByDefault?: number;
 };
 
 export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
@@ -29,6 +30,7 @@ export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
   exportProps,
   tryItCredentialsPolicy,
   tryItCorsProxy,
+  maxDepthOpenByDefault,
 }) => {
   const container = React.useRef<HTMLDivElement>(null);
   const tree = React.useMemo(
@@ -75,7 +77,13 @@ export const APIWithSidebarLayout: React.FC<SidebarLayoutProps> = ({
         <Heading size={4}>{serviceNode.name}</Heading>
       </Flex>
       <Flex flexGrow flexShrink overflowY="auto" direction="col">
-        <TableOfContents tree={tree} activeId={pathname} Link={Link} onLinkClick={handleTocClick} />
+        <TableOfContents
+          tree={tree}
+          activeId={pathname}
+          Link={Link}
+          onLinkClick={handleTocClick}
+          maxDepthOpenByDefault={maxDepthOpenByDefault}
+        />
       </Flex>
     </>
   );
