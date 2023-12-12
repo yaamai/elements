@@ -35,7 +35,7 @@ const defaultStyle = {
 
 export const Parameters: React.FunctionComponent<ParametersProps> = ({ parameters, parameterType }) => {
   const { nodeHasChanged } = useOptionsCtx();
-  const [refResolver, maxRefDepth] = useSchemaInlineRefResolver();
+  const [refResolver, maxRefDepth, defaultExpandedDepth] = useSchemaInlineRefResolver();
 
   const schema = React.useMemo(
     () => httpOperationParamsToSchema({ parameters, parameterType }),
@@ -48,6 +48,7 @@ export const Parameters: React.FunctionComponent<ParametersProps> = ({ parameter
     <JsonSchemaViewer
       resolveRef={refResolver}
       maxRefDepth={maxRefDepth}
+      defaultExpandedDepth={defaultExpandedDepth}
       schema={schema}
       disableCrumbs
       nodeHasChanged={nodeHasChanged}

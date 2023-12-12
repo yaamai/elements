@@ -24,7 +24,7 @@ export const isBodyEmpty = (body?: BodyProps['body']) => {
 };
 
 export const Body = ({ body, onChange }: BodyProps) => {
-  const [refResolver, maxRefDepth] = useSchemaInlineRefResolver();
+  const [refResolver, maxRefDepth, defaultExpandedDepth] = useSchemaInlineRefResolver();
   const [chosenContent, setChosenContent] = React.useState(0);
   const { nodeHasChanged } = useOptionsCtx();
 
@@ -67,6 +67,7 @@ export const Body = ({ body, onChange }: BodyProps) => {
         <JsonSchemaViewer
           resolveRef={refResolver}
           maxRefDepth={maxRefDepth}
+          defaultExpandedDepth={defaultExpandedDepth}
           schema={getOriginalObject(schema)}
           viewMode="write"
           renderRootTreeLines

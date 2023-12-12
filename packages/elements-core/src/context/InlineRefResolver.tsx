@@ -12,6 +12,7 @@ const translatedObjectSymbol = Symbol('TranslatedObject');
 type InlineRefResolverContext = {
   resolver: ReferenceResolver | undefined;
   maxRefDepth: number | undefined;
+  defaultExpandedDepth: number | undefined;
 };
 
 const InlineRefResolverContext = React.createContext<InlineRefResolverContext | undefined>(undefined);
@@ -24,6 +25,7 @@ type InlineRefResolverProviderProps = {
   document?: unknown;
   resolver?: ReferenceResolver;
   maxRefDepth?: number;
+  defaultExpandedDepth?: number;
 };
 
 /**
@@ -34,6 +36,7 @@ export const InlineRefResolverProvider: React.FC<InlineRefResolverProviderProps>
   document: maybeDocument,
   resolver,
   maxRefDepth,
+  defaultExpandedDepth,
 }) => {
   const document = isPlainObject(maybeDocument) ? maybeDocument : undefined;
 
@@ -43,7 +46,7 @@ export const InlineRefResolverProvider: React.FC<InlineRefResolverProviderProps>
   );
 
   return (
-    <InlineRefResolverContext.Provider value={{ resolver: computedResolver, maxRefDepth }}>
+    <InlineRefResolverContext.Provider value={{ resolver: computedResolver, maxRefDepth, defaultExpandedDepth }}>
       <DocumentContext.Provider value={document}>{children}</DocumentContext.Provider>
     </InlineRefResolverContext.Provider>
   );
@@ -63,9 +66,9 @@ export const useResolvedObject = (currentObject: object): object => {
   );
 };
 
-export const useSchemaInlineRefResolver = (): [ReferenceResolver, number | undefined] => {
+export const useSchemaInlineRefResolver = (): [ReferenceResolver, number | undefined, number | undefined] => {
   const document = useDocument();
-  const { resolver, maxRefDepth } = useInlineRefResolver() ?? {};
+  const { resolver, maxRefDepth, defaultExpandedDepth } = useInlineRefResolver() ?? {};
 
   const referenceResolver = React.useCallback<ReferenceResolver>(
     (...args) => {
@@ -90,5 +93,5 @@ export const useSchemaInlineRefResolver = (): [ReferenceResolver, number | undef
     [document, resolver],
   );
 
-  return [referenceResolver, maxRefDepth];
+  return [referenceResolver, maxRefDepth, defaultExpandedDepth];
 };

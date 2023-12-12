@@ -165,7 +165,7 @@ Responses.displayName = 'HttpOperation.Responses';
 const Response = ({ response, onMediaTypeChange }: ResponseProps) => {
   const { contents = [], headers = [], description } = response;
   const [chosenContent, setChosenContent] = React.useState(0);
-  const [refResolver, maxRefDepth] = useSchemaInlineRefResolver();
+  const [refResolver, maxRefDepth, defaultExpandedDepth] = useSchemaInlineRefResolver();
   const { nodeHasChanged } = useOptionsCtx();
 
   const responseContent = contents[chosenContent];
@@ -213,6 +213,7 @@ const Response = ({ response, onMediaTypeChange }: ResponseProps) => {
               schema={getOriginalObject(schema)}
               resolveRef={refResolver}
               maxRefDepth={maxRefDepth}
+              defaultExpandedDepth={defaultExpandedDepth}
               viewMode="read"
               parentCrumbs={['responses', response.code]}
               renderRootTreeLines

@@ -95,6 +95,12 @@ export interface CommonAPIProps extends RoutingProps {
    * @default undefined
    */
   maxRefDepth?: number;
+
+  /**
+   * The amount of properties deep should be expanded.
+   * @default undefined
+   */
+  defaultExpandedDepth?: number;
 }
 
 const propsAreWithDocument = (props: APIProps): props is APIPropsWithDocument => {
@@ -113,6 +119,7 @@ export const APIImpl: React.FC<APIProps> = props => {
     tryItCredentialsPolicy,
     tryItCorsProxy,
     maxRefDepth,
+    defaultExpandedDepth,
   } = props;
   const location = useLocation();
   const apiDescriptionDocument = propsAreWithDocument(props) ? props.apiDescriptionDocument : undefined;
@@ -169,7 +176,11 @@ export const APIImpl: React.FC<APIProps> = props => {
   }
 
   return (
-    <InlineRefResolverProvider document={parsedDocument} maxRefDepth={maxRefDepth}>
+    <InlineRefResolverProvider
+      document={parsedDocument}
+      maxRefDepth={maxRefDepth}
+      defaultExpandedDepth={defaultExpandedDepth}
+    >
       {layout === 'stacked' ? (
         <APIWithStackedLayout
           serviceNode={serviceNode}

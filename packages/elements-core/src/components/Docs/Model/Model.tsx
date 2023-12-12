@@ -27,7 +27,7 @@ const ModelComponent: React.FC<ModelProps> = ({
   layoutOptions,
   exportProps,
 }) => {
-  const [resolveRef, maxRefDepth] = useSchemaInlineRefResolver();
+  const [resolveRef, maxRefDepth, defaultExpandedDepth] = useSchemaInlineRefResolver();
   const data = useResolvedObject(unresolvedData) as JSONSchema7;
   const { nodeHasChanged } = useOptionsCtx();
 
@@ -82,6 +82,7 @@ const ModelComponent: React.FC<ModelProps> = ({
       <JsonSchemaViewer
         resolveRef={resolveRef}
         maxRefDepth={maxRefDepth}
+        defaultExpandedDepth={defaultExpandedDepth}
         schema={getOriginalObject(data)}
         nodeHasChanged={nodeHasChanged}
         skipTopLevelDescription

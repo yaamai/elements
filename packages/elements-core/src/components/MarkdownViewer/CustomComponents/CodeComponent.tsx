@@ -39,7 +39,7 @@ interface ISchemaAndDescriptionProps {
 }
 
 const SchemaAndDescription = ({ title: titleProp, schema }: ISchemaAndDescriptionProps) => {
-  const [resolveRef, maxRefDepth] = useSchemaInlineRefResolver();
+  const [resolveRef, maxRefDepth, defaultExpandedDepth] = useSchemaInlineRefResolver();
   const title = titleProp ?? schema.title;
   return (
     <Box py={2}>
@@ -52,7 +52,7 @@ const SchemaAndDescription = ({ title: titleProp, schema }: ISchemaAndDescriptio
         </Flex>
       )}
 
-      <JsonSchemaViewer resolveRef={resolveRef} maxRefDepth={maxRefDepth} schema={getOriginalObject(schema)} />
+      <JsonSchemaViewer resolveRef={resolveRef} maxRefDepth={maxRefDepth} defaultExpandedDepth={defaultExpandedDepth} schema={getOriginalObject(schema)} />
     </Box>
   );
 };
