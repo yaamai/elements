@@ -18,4 +18,5 @@ export const ApiElement = createElementClass(API, {
   tryItCorsProxy: { type: 'string' },
   maxRefDepth: { type: 'number' },
   defaultExpandedDepth: { type: 'number', defaultValue: 2 },
+  maxDepthOpenByDefault: { type: 'number', defaultValue: 2 },
 });

@@ -68,7 +68,7 @@ export const APIWithStackedLayout: React.FC<StackedLayoutProps> = ({
   exportProps,
   tryItCredentialsPolicy,
   tryItCorsProxy,
-  showPoweredByLink = true,
+  showPoweredByLink = false,
   location,
 }) => {
   const { groups } = computeTagGroups(serviceNode);
